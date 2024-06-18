@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Ucapan</title>
+    <style>
+        body {
+            font-family: 'Lucida Handwriting', cursive;
+            text-align: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .card, .envelope {
+            position: relative;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 40%;
+            margin: 0 auto;
+            display: none;
+            overflow: hidden;
+        }
+        .card {
+            animation: slideIn 1.5s ease-out;
+            z-index: 1;
+        }
+        .envelope {
+            display: block;
+            animation: openEnvelope 5s ease-out forwards;
+        }
+        .envelope img {
+            max-width: 100%;
+            border-radius: 40px;
+        }
+        .card h1 {
+            font-size: 2em;
+            color: #e63946;
+            margin-bottom: 10px;
+        }
+        .card img {
+            max-width: 100%;
+            border-radius: 20px;
+            margin: 20px 0;
+            animation: zoomIn 2s ease-out;
+        }
+        .card p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .play-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 12px;
+            animation: bounce 2s infinite;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .play-button:hover {
+            background-color: #45a049;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes openEnvelope {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: fall 5s linear infinite;
+            z-index: 2;
+        }
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        .heart:after {
+            top: 0;
+            left: 10px;
+        }
+        .hearts-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 2;
+        }
+        @media only screen and (max-width: 600px) {
+            .card, .envelope {
+                padding: 20px;
+                max-width: 95%;
+            }
+            .card h1 {
+                font-size: 1.8em;
+            }
+            .card p {
+                font-size: 1em;
+            }
+            .play-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container">
+        <div class="heart" style="left: 10%; animation-duration: 4s;"></div>
+        <div class="heart" style="left: 20%; animation-duration: 5s; animation-delay: 1s;"></div>
+        <div class="heart" style="left: 30%; animation-duration: 3s; animation-delay: 2s;"></div>
+        <div class="heart" style="left: 40%; animation-duration: 4s; animation-delay: 1s;"></div>
+        <div class="heart" style="left: 50%; animation-duration: 5s; animation-delay: 3s;"></div>
+        <div class="heart" style="left: 60%; animation-duration: 3s; animation-delay: 2s;"></div>
+        <div class="heart" style="left: 70%; animation-duration: 4s;"></div>
+        <div class="heart" style="left: 80%; animation-duration: 5s; animation-delay: 1s;"></div>
+        <div class="heart" style="left: 90%; animation-duration: 3s; animation-delay: 2s;"></div>
+    </div>
+    <div class="envelope">
+        <img src="8.png" alt="Envelope">
+    </div>
+    <div class="card">
+        <h1>Selamat Ulang Tahun!</h1>
+        <img src="2.jpeg" alt="Birthday Image">
+        <p>Semoga harimu penuh dengan kebahagiaan dan keberkahan.</p>
+        <button class="play-button" onclick="playAudio()">Putar Audio</button>
+    </div>
+    <audio id="audio" src="four.mp3"></audio>
+    <script>
+        function playAudio() {
+            var audio = document.getElementById("audio");
+            audio.play();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.querySelector(".envelope").style.display = 'none';
+                document.querySelector(".card").style.display = 'block';
+            }, 5000); // Menunggu 5 detik sebelum menampilkan kartu
+        });
+    </script>
+</body>
+</html>
